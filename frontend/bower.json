@@ -21,6 +21,7 @@
     "jquery-ui": "*",
     "normalize-css": "*",
     "classie": "*",
-    "modernizr": "*"
+    "modernizr": "*",
+    "Snarl": "https://github.com/wiringtheworld/Snarl.git#~0.3.2"
   }
 }

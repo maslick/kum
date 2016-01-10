@@ -10,10 +10,23 @@ define(['../module', 'jquery'], function (controllers, $) {
         var Snarl = $window.Snarl;
         var timeout = 3000;
 
+        var err404 = function () {
+            Snarl.addNotification({
+                title: "Server unavailable",
+                text: "Try again later",
+                icon: '<i class="glyphicon glyphicon-thumbs-down"></i>',
+                timeout: timeout
+            });
+        }
+
         $scope.updateIOCtable = function() {
-            $http.get(restPrefix + "/iocs").success(function (data) {
+            $http.get(restPrefix + "/iocs")
+            .success(function (data) {
                 console.log(data);
                 $scope.iocs = data;
+            })
+            .error(function () {
+                err404();
             });
         };
 
@@ -22,17 +35,21 @@ define(['../module', 'jquery'], function (controllers, $) {
 
         $scope.submitIoc = function() {
             if ($scope.addIOCform.$valid) {
-                $http.post(restPrefix + '/add', $scope.newioc, []).success(function (data) {
-                    console.log("IOC added!");
-                    Snarl.addNotification({
-                        title: "ADD",
-                        text: "New IOC added",
-                        icon: '<i class="glyphicon glyphicon-plus"></i>',
-                        timeout: timeout
+                $http.post(restPrefix + '/add', $scope.newioc, [])
+                    .success(function (data) {
+                        console.log("IOC added!");
+                        Snarl.addNotification({
+                            title: "ADD",
+                            text: "New IOC added",
+                            icon: '<i class="glyphicon glyphicon-plus"></i>',
+                            timeout: timeout
+                        });
+                        $scope.updateIOCtable();
+                        $scope.newioc = {};
+                    })
+                    .error(function () {
+                        err404();
                     });
-                    $scope.updateIOCtable();
-                    $scope.newioc = {};
-                });
             }
             else {
                 if (!$scope.addIOCform.name.$valid) {
@@ -58,18 +75,20 @@ define(['../module', 'jquery'], function (controllers, $) {
         }
 
         $scope.removeIOC = function (id) {
-            $http.delete(restPrefix + '/delete/' + id).success(function (data){
-                console.log(id + " was deleted from the database!");
-                Snarl.addNotification({
-                    title: "DELETE",
-                    text: "IOC was deleted from the database.",
-                    icon: '<i class="glyphicon glyphicon-remove"></i>',
-                    timeout: timeout
+            $http.delete(restPrefix + '/delete/' + id)
+                .success(function (data){
+                    console.log(id + " was deleted from the database!");
+                    Snarl.addNotification({
+                        title: "DELETE",
+                        text: "IOC was deleted from the database.",
+                        icon: '<i class="glyphicon glyphicon-remove"></i>',
+                        timeout: timeout
+                    });
+                    $scope.updateIOCtable();
+                })
+                .error(function () {
+                    err404();
                 });
-                $scope.updateIOCtable();
-
-            });
         }
-
     }]);
 });

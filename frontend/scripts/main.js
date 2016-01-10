@@ -17,7 +17,7 @@
         'dropdown': '../vendor/bootstrap/js/dropdown',
         'classie': '../vendor/classie/classie',
         'modernizr': '../vendor/modernizr/modernizr',
-        'snarl': '../libs/snarl/snarl'
+        'snarl': '../vendor/Snarl/src/js/snarl'
     },
     shim: {
         'angular': {
