@@ -1,0 +1,72 @@
+
+
+<div class="topthing">
+    <h2 class="text-center">IOC management console</h2>
+    <p class="text-center">Start adding/deleting IOCs right away!</p>
+</div>
+
+
+<div class="container" style="padding-top: 20px;">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                <li class="active"><a href="#view" data-toggle="tab">View IOCs</a></li>
+                <li><a href="#add" data-toggle="tab">Add new IOC</a></li>
+            </ul>
+
+            <div id="my-tab-content" class="tab-content" style="padding: 15px;">
+                <div class="tab-pane active" id="view">
+                    <table class="table table-striped" >
+                        <thead>
+                            <tr>
+                                <td><strong>#</strong></td>
+                                <td><strong>name</strong></td>
+                                <td><strong>ip</strong></td>
+                                <td><strong>description</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="ioc in iocs | orderBy:'id'">
+                                <td>{{ ioc.id }}</td>
+                                <td>{{ ioc.name }}</td>
+                                <td>{{ ioc.ip }}</td>
+                                <td>{{ ioc.description }}</td>
+                                <td class="text-right"><a href="#" ng-click="removeIOC(ioc.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane" id="add" style="padding: 15px;">
+                    <form class="form-horizontal" name="addIOCform" ng-submit="submitIoc()" novalidate>
+                        <fieldset>
+                            <!-- IOC NAME -->
+                            <div class="form-group" ng-class="{ 'has-error' : addIOCform.name.$invalid }">
+                                <!--<legend>Add new IOC</legend>-->
+                                <input name="name" ng-model="newioc.name" type="text"
+                                       placeholder="IOC name, e.g. ioc1" class="form-control has-error" required=""/ text>
+                            </div>
+
+                            <!-- IP ADDR -->
+                            <div class="form-group" ng-class="{ 'has-error' : addIOCform.ip.$invalid }">
+                                <input name="ip" ng-model="newioc.ip" class="form-control" type="text"
+                                       ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/"
+                                       placeholder="IP-address, e.g. 127.0.0.1" required="" />
+                            </div>
+
+
+                            <!-- DESCRIPTION -->
+                            <div class="form-group">
+                                <textarea ng-model="newioc.description" class="form-control" rows="7" placeholder="Description" style="resize:vertical;"></textarea>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-large btn-success">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

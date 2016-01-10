@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class RestResource {
 
     @PersistenceContext(unitName = "ioc")
@@ -36,10 +37,6 @@ public class RestResource {
         List<IOC> iocs = query.getResultList();
         return Response
                 .status(Response.Status.OK)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                .header("Access-Control-Max-Age", "1209600")
                 .entity(iocs)
                 .build();
     }
@@ -54,11 +51,6 @@ public class RestResource {
 
         return Response
                 .status(Response.Status.CREATED)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-                .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                .header("Access-Control-Max-Age", "1209600")
                 .entity(ioc)
                 .build();
     }
@@ -72,11 +64,6 @@ public class RestResource {
         em.getTransaction().commit();
         return Response
                 .status(Response.Status.OK)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-                .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                .header("Access-Control-Max-Age", "1209600")
                 .build();
     }
 }
