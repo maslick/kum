@@ -7,6 +7,7 @@ define([
     'angular',
     'jquery',
     'rainbow',
+    'snarl',
     'twitter-bootstrap',
     'app',
     'routes',

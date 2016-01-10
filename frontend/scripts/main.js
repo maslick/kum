@@ -16,7 +16,8 @@
         'lodash': '../vendor/lodash/lodash',
         'dropdown': '../vendor/bootstrap/js/dropdown',
         'classie': '../vendor/classie/classie',
-        'modernizr': '../vendor/modernizr/modernizr'
+        'modernizr': '../vendor/modernizr/modernizr',
+        'snarl': '../libs/snarl/snarl'
     },
     shim: {
         'angular': {
