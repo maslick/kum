@@ -1,0 +1,27 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':model')
+    compile 'com.kumuluz.ee:kumuluzee-core:2.0.0'
+    compile 'com.kumuluz.ee:kumuluzee-servlet-jetty:2.0.0'
+    compile 'com.kumuluz.ee:kumuluzee-jax-rs-jersey:2.0.0'
+    compile 'com.kumuluz.ee:kumuluzee-cdi-weld:2.0.0'
+    compile 'com.thetransactioncompany:cors-filter:2.1'
+}
+
+
+task copyDependencies(type: Copy) {
+   from configurations.compile
+   into 'build/dependency'
+}
+
+sourceSets {
+    main {
+    	output.resourcesDir = "build/classes"
+        output.classesDir   = 'build/classes'
+    }
+}

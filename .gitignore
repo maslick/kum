@@ -6,3 +6,6 @@ frontend/.idea/*
 frontend/node_modules
 frontend/vendor
 *.css
+
+.gradle/*
+build
